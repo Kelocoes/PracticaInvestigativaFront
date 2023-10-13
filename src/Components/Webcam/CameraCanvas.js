@@ -1,12 +1,22 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import { Typography, Button } from '@mui/material';
 import { useRequest } from '../../Api/ApiModel';
+import Results from './Results';
 
-export default function CameraCanvas() {
+export default function CameraCanvas(props) {
+    const { setNumberOfCards, response, setResponse, setEmotions } = props;
     const webcamRef = useRef(null);
     const { getRecognition } = useRequest();
-    const [response, setResponse] = useState(null);
+
+    const emotions = [
+        { name: "Neutral", emoji: "😐" },
+        { name: "Felicidad", emoji: "😄" },
+        { name: "Sorpresa", emoji: "😲" },
+        { name: "Tristeza", emoji: "😢" },
+        { name: "Furia", emoji: "😡" },
+        { name: "Miedo", emoji: "😨"}
+    ];
 
     const captureImage = () => {
         try {
@@ -18,8 +28,18 @@ export default function CameraCanvas() {
         }
     }
 
+    const generateRandomCards = () => {
+        const randomCount = Math.floor(Math.random() * (8 - 3 + 1)) + 3;
+        const randomEmotions = Array.from({ length: randomCount }, () => {
+            const randomIndex = Math.floor(Math.random() * emotions.length);
+            return emotions[randomIndex];
+        });
+        setNumberOfCards(randomCount);
+        setEmotions(randomEmotions)
+    }
+
     useEffect(() => {
-        const interval = setInterval(captureImage, 10000);
+        const interval = setInterval(captureImage, 1000);
 
         return () => {
             clearInterval(interval);
@@ -28,43 +48,33 @@ export default function CameraCanvas() {
 
     return (
         <>
-            <div>
+            <Typography variant="h3">
+                Reconocimiento facial y de emociones
+            </Typography>
+            <div style={{ display: 'flex' }}>
                 <Webcam
-                    height= {400}
+                    height= {425}
                     screenshotFormat="image/jpeg"
                     ref={webcamRef}
                     audio={false}
                     mirrored={true}
                     screenshotQuality={1}
-                />
+                ></Webcam>
+                {response &&
+                    <div style={{ display: 'flex', alignItems: 'center'}}>
+                        <Results response={response}></Results>
+                    </div>
+                }
             </div>
-            {response &&
-                <div>
-                    <Typography variant="h6">
-                        Resultados de reconocimiento facial
-                    </Typography>
-                    <Typography>
-                        Edad: {response.InsightFaceResults.age}
-                        <br />
-                        Sexo: {response.InsightFaceResults.gender}
-                        <br />
-                        Puntaje: {response.InsightFaceResults.score}
-                    </Typography>
-                    <Typography variant="h6">
-                        Resultados de reconocimiento de emociones
-                    </Typography>
-                    <Typography>
-                        Emociones: {response.EmotionResults.Emotions[0]} { }
-                        {response.EmotionResults.Emotions[1]} 
-                        <br />
-                        Puntajes: {response.EmotionResults.Scores[0]} { }
-                        {response.EmotionResults.Scores[1]} 
-                    </Typography>
-                    <Button variant="contained" style={{ textTransform: 'none' }}>
-                        Generar cartas
-                    </Button>
-                </div>
-            }
+            <div>
+                <Button 
+                    variant="contained" 
+                    style={{ textTransform: 'none' }}
+                    onClick={generateRandomCards}
+                >
+                    Generar cartas
+                </Button>
+            </div>
         </>
     );
 }
