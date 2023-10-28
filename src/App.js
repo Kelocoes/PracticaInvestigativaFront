@@ -1,10 +1,14 @@
 import './App.css';
-import CameraCanvas from './Components/Webcam/CameraCanvas'
+import MainGame from './Components/MainFrame/MainGame'
+import React from 'react';
 
 function App() {
+
   return (
     <div className="App">
-      <CameraCanvas></CameraCanvas>
+      <header className="App-header">  
+        <MainGame/>
+      </header>
     </div>
   );
 }

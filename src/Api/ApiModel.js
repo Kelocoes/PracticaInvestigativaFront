@@ -24,7 +24,6 @@ export const useRequest = () => {
         }
 
         const response = await makeRequest({config})
-        console.log(response)
         setResponse(response)
     }
 
