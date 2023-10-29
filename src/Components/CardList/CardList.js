@@ -34,7 +34,7 @@ export default function Cardlist(props) {
     return (
         <div>
             {emotions.length > 0 &&
-                <Grid container spacing={2} marginTop={1}>
+                <Grid container spacing={2} marginTop={1} sx={{ paddingX:10 }}>
                     {cards}
                 </Grid>
             }

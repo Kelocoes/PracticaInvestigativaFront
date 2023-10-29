@@ -3,15 +3,13 @@ import Webcam from 'react-webcam';
 import { Typography, Button } from '@mui/material';
 import { useRequest } from '../../Api/ApiModel';
 import Results from './Results';
-import CardList from '../CardList/CardList';
 import Grid from '@mui/material/Grid';
 
-export default function MainGame() {
+export default function MainGame(props) {
+    const { response, setEmotions, setResponse } = props;
     const webcamRef = useRef(null);
     const { getRecognition } = useRequest();
     const [randomCount, setRandomCount] = useState(3);
-    const [response, setResponse] = useState(null)
-    const [emotions, setEmotions] = useState([])
 
     const emotionsPool = [
         { name: "Neutral", emoji: "😐", probability: 0.05 },
@@ -63,7 +61,7 @@ export default function MainGame() {
     },);
 
     return (
-        <Grid container spacing={2} sx={{ paddingX: 10, paddingY: 5 }}>
+        <Grid container spacing={2} sx={{ paddingX: 10, paddingTop: 5, paddingBottom: 2 }}>
             <Grid item xs={12}>
                 <Typography variant="h3">
                     Reconocimiento facial y de emociones
@@ -93,9 +91,6 @@ export default function MainGame() {
                 >
                     Iniciar el juego
                 </Button>
-            </Grid>
-            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <CardList response={response} emotions={emotions} />
             </Grid>
         </Grid>
     );
