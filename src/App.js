@@ -7,8 +7,6 @@ import Timer from './Components/Timer/Timer';
 function App() {
   const [response, setResponse] = useState(null)
   const [emotions, setEmotions] = useState([])
-  // eslint-disable-next-line
-  const [time, setTime] = useState(Date.now() + 10000)
 
   return (
     <div className="App">
@@ -19,7 +17,7 @@ function App() {
           emotions={emotions}
           setEmotions={setEmotions}
         />
-        <Timer time={time} setTime={setTime}/>
+        <Timer/>
         <CardList response={response} emotions={emotions} />
       </header>
     </div>
