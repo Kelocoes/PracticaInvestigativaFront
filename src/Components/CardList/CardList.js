@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 export default function Cardlist(props) {
     const { response, emotions, setScore } = props
@@ -42,3 +42,9 @@ export default function Cardlist(props) {
         </div>
     );
 }
+
+Cardlist.propTypes = {
+    response: PropTypes.object,
+    emotions: PropTypes.array,
+    setScore: PropTypes.func
+};

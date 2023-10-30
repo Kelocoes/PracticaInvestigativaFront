@@ -5,6 +5,7 @@ import { useRequest } from '../../Api/ApiModel';
 import Results from './Results';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import PropTypes from 'prop-types';
 
 export default function MainInfo(props) {
     const { response, setResponse, } = props;
@@ -56,3 +57,8 @@ export default function MainInfo(props) {
         </Grid>
     );
 }
+
+MainInfo.propTypes = {
+    response: PropTypes.object,
+    setResponse: PropTypes.func
+};

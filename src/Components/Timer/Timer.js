@@ -1,11 +1,11 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import useCountDown from 'react-countdown-hook';
 import { generateRandomCards } from '../Emotions/Emotion';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Proptypes from 'prop-types';
 
 export default function Timer(props) {
     const initialTime = 10000;
@@ -60,3 +60,11 @@ export default function Timer(props) {
         </Box>
     )
 }
+
+Timer.propTypes = {
+    setRandomCount: Proptypes.func,
+    setEmotions: Proptypes.func,
+    randomCount: Proptypes.number,
+    score: Proptypes.number,
+    setScore: Proptypes.func
+};
