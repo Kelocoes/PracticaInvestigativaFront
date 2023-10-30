@@ -1,5 +1,5 @@
 import './App.css';
-import MainGame from './Components/MainFrame/MainGame';
+import MainInfo from './Components/MainInfo/MainInfo';
 import React, { useState }  from 'react';
 import CardList from './Components/CardList/CardList';
 import Timer from './Components/Timer/Timer';
@@ -7,18 +7,28 @@ import Timer from './Components/Timer/Timer';
 function App() {
   const [response, setResponse] = useState(null)
   const [emotions, setEmotions] = useState([])
+  const [randomCount, setRandomCount] = useState(0);
+  const [score, setScore] = useState(0);
 
   return (
     <div className="App">
       <header className="App-header">  
-        <MainGame 
+        <MainInfo 
           response={response}
           setResponse={setResponse}
-          emotions={emotions}
-          setEmotions={setEmotions}
         />
-        <Timer/>
-        <CardList response={response} emotions={emotions} />
+        <Timer 
+          setScore={setScore}
+          score={score}
+          setEmotions={setEmotions}
+          randomCount={randomCount}
+          setRandomCount={setRandomCount}
+        />
+        <CardList
+          setScore={setScore}
+          response={response} 
+          emotions={emotions} 
+        />
       </header>
     </div>
   );

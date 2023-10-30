@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Grid } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 export default function Cardlist(props) {
-    const { response, emotions } = props
+    const { response, emotions, setScore } = props
     const [selectedEmotion, setSelectedEmotion] = useState(0)
 
     const cards = emotions.map((emotion, index) => (
@@ -18,6 +18,7 @@ export default function Cardlist(props) {
 
     const checkEmotion = () => {
         if (selectedEmotion < emotions.length && response.EmotionResults.Emotions[0] === emotions[selectedEmotion].name ) {
+            setScore((prevCount) => prevCount + emotions[selectedEmotion].score)
             setSelectedEmotion((prevCount) => prevCount + 1)
         }
     }
@@ -37,12 +38,6 @@ export default function Cardlist(props) {
                 <Grid container spacing={2} marginTop={1} sx={{ paddingX:10 }}>
                     {cards}
                 </Grid>
-            }
-            {
-                (emotions.length !== 0 && emotions.length === selectedEmotion) &&
-                <Typography variant="h5" sx={{ marginTop: 1 }}>
-                    ¡Felicidades! Has completado el juego.
-                </Typography>
             }
         </div>
     );
