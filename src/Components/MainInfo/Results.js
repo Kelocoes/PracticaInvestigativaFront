@@ -1,5 +1,6 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
 
 export default function Results(props) {
     const { response } = props;
@@ -23,3 +24,7 @@ export default function Results(props) {
         </div>
     )
 }
+
+Results.propTypes = {
+    response: PropTypes.object,
+};
