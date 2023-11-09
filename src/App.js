@@ -1,36 +1,25 @@
-import './App.css';
-import MainInfo from './Components/MainInfo/MainInfo';
-import React, { useState }  from 'react';
-import CardList from './Components/CardList/CardList';
-import Timer from './Components/Timer/Timer';
+import MainGame from './Components/MainGame/MainGame';
+import SignIn from './Components/SignInUp/SignIn';
+import SignUp from './Components/SignInUp/SignUp';
+import Dashboard from './Components/Dashboard/Dashboard';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import Profile from './Components/Profile/Profile';
+import Reports from './Components/Reports/Reports';
 
 function App() {
-  const [response, setResponse] = useState(null)
-  const [emotions, setEmotions] = useState([])
-  const [randomCount, setRandomCount] = useState(0);
-  const [score, setScore] = useState(0);
 
   return (
-    <div className="App">
-      <header className="App-header">  
-        <MainInfo 
-          response={response}
-          setResponse={setResponse}
-        />
-        <Timer 
-          setScore={setScore}
-          score={score}
-          setEmotions={setEmotions}
-          randomCount={randomCount}
-          setRandomCount={setRandomCount}
-        />
-        <CardList
-          setScore={setScore}
-          response={response} 
-          emotions={emotions} 
-        />
-      </header>
-    </div>
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/registro" element={<SignUp />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="juego" element={<MainGame />} />
+          <Route path="perfil" element={<Profile />} />
+          <Route path="reportes" element={<Reports />} />
+        </Route>
+      </Routes>
+    </HashRouter>
   );
 }
 
