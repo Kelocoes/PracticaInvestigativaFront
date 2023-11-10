@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,11 +12,16 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BackgroundImage from '../../Assets/backgroundLanding.webp';
 import { useNavigate } from "react-router-dom";
+import { useRequest } from '../../Api/ApiUsers';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
     const navigate = useNavigate();
+    const { signIn } = useRequest();
+    const [response, setResponse] = useState();
+    const [loading, setLoading] = useState()
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -26,9 +31,21 @@ export default function SignIn() {
             data[key] = value;
         });
 
-        console.log(data);
-        navigate('/dashboard/perfil');
+        setLoading(true)
+        signIn(data, setResponse)
     };
+
+    useEffect(() => {
+        if (response) {
+            if (response.status === 200) {
+                navigate('/dashboard/perfil');
+            } else {
+                alert("No has podido ingresar correctamente")
+            }
+            setLoading(false)
+        }
+        // eslint-disable-next-line
+    }, [response])
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -91,6 +108,8 @@ export default function SignIn() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
+                                {loading && <CircularProgress size={20} color="inherit" />} 
+                                &nbsp;
                                 Ingresar
                             </Button>
                             <Grid container>

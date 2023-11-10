@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,10 +11,18 @@ import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BackgroundImage from '../../Assets/backgroundLanding.webp';
+import { useNavigate } from "react-router-dom";
+import { useRequest } from '../../Api/ApiUsers';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+    const navigate = useNavigate();
+    const { signUp } = useRequest();
+    const [response, setResponse] = useState();
+    const [loading, setLoading] = useState()
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -23,8 +31,21 @@ export default function SignUp() {
             data[key] = value;
         });
 
-        console.log(data);
+        setLoading(true)
+        signUp(data, setResponse)
     };
+
+    useEffect(() => {
+        if (response) {
+            if (response.status === 200) {
+                navigate('/dashboard/perfil');
+            } else {
+                alert("No has podido registrarte correctamente")
+            }
+            setLoading(false)
+        }
+        // eslint-disable-next-line
+    }, [response])
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -97,6 +118,8 @@ export default function SignUp() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
+                                {loading && <CircularProgress size={20} color="inherit" />} 
+                                &nbsp;
                                 Registrarse
                             </Button>
                             <Grid container>
