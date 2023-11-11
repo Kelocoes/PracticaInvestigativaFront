@@ -6,19 +6,18 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from "react-router-dom";
 import { useRequest } from '../../Api/ApiUsers';
 import CircularProgress from '@mui/material/CircularProgress';
 import Skeleton from '@mui/material/Skeleton';
 
 
 export default function Profile() {
-    const navigate = useNavigate();
-    const { updateProfile } = useRequest();
+    const { updateProfile, getInfo } = useRequest();
     const [response, setResponse] = useState();
+    const [profile, setProfile] = useState();
     const [loading, setLoading] = useState()
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const data = {};
@@ -27,14 +26,17 @@ export default function Profile() {
         });
 
         setLoading(true)
-        updateProfile(data, setResponse)
+        try {
+            updateProfile(data, setResponse)
+        } catch (error) {
+            alert("Ha ocurrido un error al realizar la petición")
+        }
     };
 
     useEffect(() => {
-        console.log(response)
         if (response) {
             if (response.status === 200) {
-                navigate('/dashboard/perfil');
+                alert("La información se actualizó correctamente")
             } else {
                 alert("La información no se pudo actualizar correctamente")
             }
@@ -42,6 +44,20 @@ export default function Profile() {
         }
         // eslint-disable-next-line
     }, [response])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userid = localStorage.getItem('userid');
+                await getInfo(userid, setProfile)
+            } catch (error) {
+                alert("Ha ocurrido un error al obtener la información")
+            }
+        }
+
+        fetchData()
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <Grid container component="main" sx={{ height: '100vh' }}>
@@ -63,9 +79,10 @@ export default function Profile() {
                         Tu perfil
                     </Typography>
                     {
-                        !response ?
+                        profile ?
                             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                                 <TextField
+                                    defaultValue={profile.data.user}
                                     margin="normal"
                                     required
                                     fullWidth
@@ -76,6 +93,7 @@ export default function Profile() {
                                     autoFocus
                                 />
                                 <TextField
+                                    defaultValue={profile.data.name}
                                     margin="normal"
                                     required
                                     fullWidth
@@ -84,16 +102,6 @@ export default function Profile() {
                                     name="name"
                                     autoComplete="name"
                                     autoFocus
-                                />
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Contraseña"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
                                 />
                                 <Button
                                     type="submit"

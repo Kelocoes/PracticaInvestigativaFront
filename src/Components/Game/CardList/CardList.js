@@ -3,12 +3,12 @@ import { Card, CardContent, Typography, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export default function Cardlist(props) {
-    const { response, emotions, setScore } = props
+    const { response, emotions, setScore, emotionsCount, setEmotionsCount } = props
     const [selectedEmotion, setSelectedEmotion] = useState(0)
 
     const cards = emotions.map((emotion, index) => (
         <Grid item key={index}>
-            <Card style={{ backgroundColor: selectedEmotion === index ? 'lightgreen' : 'white'}}>
+            <Card style={{ backgroundColor: selectedEmotion === index ? 'lightgreen' : 'white'}} elevation={10}>
                 <CardContent>
                     <Typography variant="h2">{emotion["emoji"]}</Typography>
                 </CardContent>
@@ -18,6 +18,9 @@ export default function Cardlist(props) {
 
     const checkEmotion = () => {
         if (selectedEmotion < emotions.length && response.EmotionResults.Emotions[0] === emotions[selectedEmotion].name ) {
+            const newArray = [...emotionsCount]
+            newArray.find(emotion => emotion.name === emotions[selectedEmotion].name).count += 1
+            setEmotionsCount(newArray)
             setScore((prevCount) => prevCount + emotions[selectedEmotion].score)
             setSelectedEmotion((prevCount) => prevCount + 1)
         }
@@ -30,7 +33,9 @@ export default function Cardlist(props) {
 
     useEffect(() => {
         setSelectedEmotion(0)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [emotions])
+
 
     return (
         <div>

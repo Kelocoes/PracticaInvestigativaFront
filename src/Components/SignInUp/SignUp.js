@@ -23,7 +23,7 @@ export default function SignUp() {
     const [response, setResponse] = useState();
     const [loading, setLoading] = useState()
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const data = {};
@@ -32,7 +32,12 @@ export default function SignUp() {
         });
 
         setLoading(true)
-        signUp(data, setResponse)
+        try {
+            await signUp(data, setResponse)
+        } catch (error) {
+            alert("Ha ocurrido un error al realizar la petición")
+            setLoading(false)
+        }
     };
 
     useEffect(() => {

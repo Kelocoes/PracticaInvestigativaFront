@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import { Typography } from '@mui/material';
-import { useRequest } from '../../Api/ApiModel';
+import { useRequest } from '../../../Api/ApiModel';
 import Results from './Results';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';

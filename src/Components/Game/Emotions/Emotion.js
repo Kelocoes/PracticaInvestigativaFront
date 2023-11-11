@@ -19,11 +19,12 @@ const getRandomEmotion = () => {
     }
 }
 
-export const generateRandomCards = (setRandomCount, setEmotions, randomCount) => {
+export const generateRandomCards = (setEmotions, randomCount) => {
     const randomEmotions = [];
     for (let i = 0; i < randomCount; i++) {
         const randomEmotion = getRandomEmotion();
         randomEmotions.push(randomEmotion);
     };
     setEmotions(randomEmotions)
+    return randomEmotions
 }

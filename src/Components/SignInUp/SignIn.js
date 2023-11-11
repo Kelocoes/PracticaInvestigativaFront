@@ -23,7 +23,7 @@ export default function SignIn() {
     const [response, setResponse] = useState();
     const [loading, setLoading] = useState()
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const data = {};
@@ -32,12 +32,18 @@ export default function SignIn() {
         });
 
         setLoading(true)
-        signIn(data, setResponse)
+        try {
+            await signIn(data, setResponse)
+        } catch (error) {
+            alert("Ha ocurrido un error al realizar la petición")
+            setLoading(false)
+        }
     };
 
     useEffect(() => {
         if (response) {
             if (response.status === 200) {
+                localStorage.setItem('userid', response.data.userid);
                 navigate('/dashboard/perfil');
             } else {
                 alert("No has podido ingresar correctamente")

@@ -27,7 +27,21 @@ export const useRequest = () => {
         setResponse(response)
     }
 
+    const saveData = async (data, id) => {
+        const config = {
+            url: "http://localhost:5000/save-data",
+            method: "POST",
+            data: {
+                id,
+                data,
+            }
+        }
+
+        await makeRequest({config})
+    }
+
     return {
-        getRecognition
+        getRecognition,
+        saveData
     }
 }

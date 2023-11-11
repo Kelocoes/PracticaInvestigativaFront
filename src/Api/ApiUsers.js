@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const useRequest = () => {
 
-    const mockUrl = "https://practicainvestigativauv.free.beeceptor.com";
+    const mockUrl = "https://practicainvestigativauv";
 
     const makeRequest = async (options) => {
         try {
@@ -23,7 +23,7 @@ export const useRequest = () => {
             data: data
         }
 
-        const response = await makeRequest({config})
+        const response = await makeRequest({ config })
         setResponse(response)
     }
 
@@ -34,7 +34,7 @@ export const useRequest = () => {
             data: data
         }
 
-        const response = await makeRequest({config})
+        const response = await makeRequest({ config })
         setResponse(response)
     }
 
@@ -45,13 +45,24 @@ export const useRequest = () => {
             data: data
         }
 
-        const response = await makeRequest({config})
+        const response = await makeRequest({ config })
         setResponse(response)
+    }
+
+    const getInfo = async (id, setProfile) => {
+        const config = {
+            url: `${mockUrl}/getprofile/${id}`,
+            method: "GET",
+        }
+
+        const response = await makeRequest({ config })
+        setProfile(response)
     }
 
     return {
         signIn,
         signUp,
-        updateProfile
+        updateProfile,
+        getInfo
     }
 }

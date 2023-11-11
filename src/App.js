@@ -1,4 +1,4 @@
-import MainGame from './Components/MainGame/MainGame';
+import MainGame from './Components/Game/MainGame/MainGame';
 import SignIn from './Components/SignInUp/SignIn';
 import SignUp from './Components/SignInUp/SignUp';
 import Dashboard from './Components/Dashboard/Dashboard';
