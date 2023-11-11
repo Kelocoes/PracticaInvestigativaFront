@@ -14,6 +14,10 @@ import Divider from '@mui/material/Divider';
 export default function Dashboard() {
     const [value, setValue] = useState(0);
 
+    const cleanStorage = () => {
+        localStorage.removeItem('userid')
+    }
+
     return (
         <Fade in={true}>
             <Box>
@@ -34,7 +38,7 @@ export default function Dashboard() {
                         <BottomNavigationAction label="Perfil" icon={<PersonIcon />} component={LinkRouter} to={`perfil`}/>
                         <BottomNavigationAction label="Juego" icon={<DeblurIcon />} component={LinkRouter} to={`juego`}/>
                         <BottomNavigationAction label="Reportes" icon={<QueryStatsIcon />} component={LinkRouter} to={`reportes`}/>
-                        <BottomNavigationAction label="Salir" icon={<LogoutIcon />} component={LinkRouter} to={`/`}/>
+                        <BottomNavigationAction label="Salir" icon={<LogoutIcon />} component={LinkRouter} to={`/`} onClick={cleanStorage}/>
                     </BottomNavigation>
                     <Divider  sx={{ borderBottomWidth: 5, backgroundColor: 'gray', mt: 2 }} />
                 </Box>
