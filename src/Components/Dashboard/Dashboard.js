@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link as LinkRouter } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -8,7 +8,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import DeblurIcon from '@mui/icons-material/Deblur';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Link as LinkRouter } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 
 export default function Dashboard() {

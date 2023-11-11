@@ -27,7 +27,7 @@ export default function Profile() {
 
         setLoading(true)
         try {
-            updateProfile(data, setResponse)
+            await updateProfile(data, setResponse)
         } catch (error) {
             alert("Ha ocurrido un error al realizar la petición")
         }

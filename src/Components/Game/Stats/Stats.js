@@ -112,8 +112,11 @@ export default function Stats(props) {
 
 Stats.propTypes = {
     setRandomCount: Proptypes.func,
+    emotions: Proptypes.array,
     setEmotions: Proptypes.func,
     randomCount: Proptypes.number,
     score: Proptypes.number,
-    setScore: Proptypes.func
-};
+    setScore: Proptypes.func,
+    emotionsCount: Proptypes.array,
+    setEmotionsCount: Proptypes.func
+}

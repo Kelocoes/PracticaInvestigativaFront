@@ -49,7 +49,9 @@ export default function Cardlist(props) {
 }
 
 Cardlist.propTypes = {
-    response: PropTypes.object,
-    emotions: PropTypes.array,
-    setScore: PropTypes.func
+    response: PropTypes.object.isRequired,
+    emotions: PropTypes.array.isRequired,
+    setScore: PropTypes.func.isRequired,
+    emotionsCount: PropTypes.array.isRequired,
+    setEmotionsCount: PropTypes.func.isRequired
 };
