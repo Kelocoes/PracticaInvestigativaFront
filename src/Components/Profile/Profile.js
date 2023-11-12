@@ -60,11 +60,11 @@ export default function Profile() {
     }, [])
 
     return (
-        <Grid container component="main" sx={{ height: '100vh' }}>
+        <Grid container component="main" >
             <Grid item xs={12} elevation={6} square align="center">
                 <Box
                     sx={{
-                        my: 8,
+                        my: 5,
                         mx: 10,
                         display: 'flex',
                         flexDirection: 'column',
@@ -75,7 +75,7 @@ export default function Profile() {
                     <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                         <LockIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h4">
                         Tu perfil
                     </Typography>
                     {
