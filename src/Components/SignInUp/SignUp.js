@@ -35,7 +35,7 @@ export default function SignUp() {
         try {
             await signUp(data, setResponse)
         } catch (error) {
-            alert("Ha ocurrido un error al realizar la petición")
+            alert("Ha ocurrido un error al realizar el registro")
             setLoading(false)
         }
     };
@@ -58,10 +58,6 @@ export default function SignUp() {
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
-                    item
-                    xs={false}
-                    sm={4}
-                    md={7}
                     sx={{
                         backgroundImage: `url(${BackgroundImage})`,
                         backgroundRepeat: 'no-repeat',
@@ -70,6 +66,10 @@ export default function SignUp() {
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
+                    item
+                    xs={false}
+                    sm={4}
+                    md={7}
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box
@@ -124,7 +124,7 @@ export default function SignUp() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                {loading && <CircularProgress size={20} color="inherit" />} 
+                                {loading && <CircularProgress size={20} color="inherit" />}
                                 &nbsp;
                                 Registrarse
                             </Button>
