@@ -43,6 +43,7 @@ export default function SignUp() {
     useEffect(() => {
         if (response) {
             if (response.status === 200) {
+                localStorage.setItem('userid', response.data.userid);
                 navigate('/dashboard/perfil');
             } else {
                 alert("No has podido registrarte correctamente")

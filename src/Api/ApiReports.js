@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const useRequest = () => {
 
-    const mockUrl = "http://localhost:5000";
+    const mockUrl = "https://practicainvestigativauv";
 
     const makeRequest = async (options) => {
         try {
@@ -18,7 +18,7 @@ export const useRequest = () => {
 
     const fetchChart = async (id, setResponse) => {
         const config = {
-            url: `${mockUrl}/fetchchart`,
+            url: `${mockUrl}/fetchchart/${id}`,
             method: "GET"
         }
 
@@ -28,7 +28,7 @@ export const useRequest = () => {
 
     const fetchPie = async (id, setResponse) => {
         const config = {
-            url: `${mockUrl}/fetchpie`,
+            url: `${mockUrl}/fetchpie/${id}`,
             method: "GET"
         }
 

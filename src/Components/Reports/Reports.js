@@ -31,6 +31,15 @@ export default function Reports() {
     const [responsePie, setResponsePie] = useState()
     const { fetchChart, fetchPie } = useRequest();
 
+    const colors = [
+        'rgba(255, 99, 132)',
+        'rgba(54, 162, 235)',
+        'rgba(255, 206, 86)',
+        'rgba(75, 192, 192)',
+        'rgba(153, 102, 255)',
+        'rgba(255, 159, 64)'
+    ]
+
     const optionsChart = {
         responsive: true,
         maintainAspectRatio: false,
@@ -50,8 +59,6 @@ export default function Reports() {
     };
 
     const optionsPie = {
-        responsive: true,
-        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'top',
@@ -65,6 +72,8 @@ export default function Reports() {
                 }
             },
         },
+        responsive: true,
+        maintainAspectRatio: false,
     };
 
     const labels = ['Neutral', 'Felicidad', 'Sorpresa', 'Tristeza', 'Furia', 'Miedo'];
@@ -74,15 +83,8 @@ export default function Reports() {
         datasets: [
             {
                 label: 'Emociones',
-                data: typeof responseChart === 'object' ? responseChart.data.results : [0, 0.2, 0.3, 0.5, 0.1, 0.9],
-                backgroundColor: [
-                    'rgba(255, 99, 132)',
-                    'rgba(54, 162, 235)',
-                    'rgba(255, 206, 86)',
-                    'rgba(75, 192, 192)',
-                    'rgba(153, 102, 255)',
-                    'rgba(255, 159, 64)'
-                ],
+                data: typeof responseChart === 'object' ? responseChart.data.results : [],
+                backgroundColor: colors,
                 borderRadius: 10
             },
         ]
@@ -93,25 +95,11 @@ export default function Reports() {
         datasets: [
             {
                 label: 'Emociones',
-                data: typeof responsePie === 'object' ? responsePie.data.results : [1, 10, 2, 3, 4, 10],
-                backgroundColor: [
-                    'rgba(255, 99, 132)',
-                    'rgba(54, 162, 235)',
-                    'rgba(255, 206, 86)',
-                    'rgba(75, 192, 192)',
-                    'rgba(153, 102, 255)',
-                    'rgba(255, 159, 64)',
-                ],
+                data: typeof responsePie === 'object' ? responsePie.data.results : [],
+                backgroundColor: colors,
                 borderRadius: 10
             },
         ],
-        datalabels: {
-            color: 'white',
-            align: 'center',
-            formatter: (value, context) => {
-                return `${value}`
-            }
-        }
     }
 
     useEffect(() => {

@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 export const useRequest = () => {
+
+    const mockUrl = "https://practicainvestigativauv";
+
     const makeRequest = async (options) => {
         try {
             const response = await axios(options.config)
@@ -29,7 +32,7 @@ export const useRequest = () => {
 
     const saveData = async (data, id) => {
         const config = {
-            url: "http://localhost:5000/save-data",
+            url: `${mockUrl}/save-data`,
             method: "POST",
             data: {
                 id,
