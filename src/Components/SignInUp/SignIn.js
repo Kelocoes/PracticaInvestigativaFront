@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
@@ -9,10 +8,14 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
-import BackgroundImage from '../../Assets/backgroundLanding.webp';
 import { useNavigate } from "react-router-dom";
 import { useRequest } from '../../Api/ApiUsers';
 import CircularProgress from '@mui/material/CircularProgress';
+import Particles from 'react-particles';
+import { useMediaQuery } from '@mui/material';
+import { loadFull } from 'tsparticles';
+import configParticlesDesktop from './configParticlesDesktop.json';
+import configParticlesMobile from './configParticlesMobile.json';
 
 
 export default function SignIn() {
@@ -20,6 +23,7 @@ export default function SignIn() {
     const { signIn } = useRequest();
     const [response, setResponse] = useState();
     const [loading, setLoading] = useState()
+    const matches = useMediaQuery('(max-width:600px)');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -51,80 +55,77 @@ export default function SignIn() {
         // eslint-disable-next-line
     }, [response])
 
+    const particlesInit = useCallback(async engine => {
+        await loadFull(engine);
+    }, []);
+
     return (
-        <Grid container component="main" sx={{ height: '100vh' }}>
-            <CssBaseline />
-            <Grid
-                item
-                xs={false}
-                sm={4}
-                md={7}
-                sx={{
-                    backgroundImage: `url(${BackgroundImage})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: (t) =>
-                        t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}
+        <div style={{ position: 'relative' }}>
+            <Particles
+                id="tsparticles"
+                init={particlesInit}
+                options={matches ? configParticlesMobile : configParticlesDesktop}
+                style={{ position: 'fixed', top: 0, left: 0, zIndex: 0 }}
             />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square align="center">
-                <Box
-                    sx={{
-                        my: 8,
-                        width: "60%",
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                        <LockIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Ingreso
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="user"
-                            label="Usuario"
-                            name="user"
-                            autoComplete="user"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Contraseña"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            {loading && <CircularProgress size={20} color="inherit" />}
-                            &nbsp;
-                            Ingresar
-                        </Button>
-                        <Grid container>
-                            <Grid item>
-                                <Link href="#/registro" variant="body2">
-                                    ¿No tienes una cuenta? Regístrate
-                                </Link>
+            <Grid container component="main" sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Grid item xs={12} sm={8} md={5} lg={4} xl={3} component={Paper} elevation={6} square align="center" sx={{ zIndex: 1 }}>
+                    <Box
+                        sx={{
+                            my: 8,
+                            mx: 7,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                            <LockIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Ingreso
+                        </Typography>
+                        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="user"
+                                label="Usuario"
+                                name="user"
+                                autoComplete="user"
+                                autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Contraseña"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                {loading && <CircularProgress size={20} color="inherit" />}
+                                &nbsp;
+                                Ingresar
+                            </Button>
+                            <Grid container>
+                                <Grid item>
+                                    <Link href="#/registro" variant="body2">
+                                        ¿No tienes una cuenta? Regístrate
+                                    </Link>
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </Box>
                     </Box>
-                </Box>
+                </Grid>
             </Grid>
-        </Grid>
+        </div>
     );
 }
