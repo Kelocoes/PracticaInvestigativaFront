@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { useRequest } from '../../Api/ApiUsers';
 import CircularProgress from '@mui/material/CircularProgress';
 import Skeleton from '@mui/material/Skeleton';
+import Fade from '@mui/material/Fade';
 
 
 export default function Profile() {
@@ -60,65 +61,67 @@ export default function Profile() {
     }, [])
 
     return (
-        <Grid container component="main" >
-            <Grid item xs={12} elevation={6} square align="center">
-                <Box
-                    sx={{
-                        my: 5,
-                        mx: 10,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        width: { lg: '80%', xl: '20%' }
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                        <LockIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h4">
-                        Tu perfil
-                    </Typography>
-                    {
-                        profile ?
-                            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                                <TextField
-                                    defaultValue={profile.data.user}
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="user"
-                                    label="Usuario"
-                                    name="user"
-                                    autoComplete="user"
-                                    autoFocus
-                                />
-                                <TextField
-                                    defaultValue={profile.data.name}
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="name"
-                                    label="Nombre completo"
-                                    name="name"
-                                    autoComplete="name"
-                                    autoFocus
-                                />
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                >
-                                    {loading && <CircularProgress size={20} color="inherit" />}
-                                    &nbsp;
-                                    Actualizar información
-                                </Button>
-                            </Box>
-                            :
-                            <Skeleton width="400px" height="400px" animation="wave" variant="rounded" sx={{ marginY: 2 }}/>
-                    }
-                </Box>
+        <Fade in={true} timeout={750} mountOnEnter unmountOnExit>
+            <Grid container component="main" >
+                <Grid item xs={12} elevation={6} square align="center">
+                    <Box
+                        sx={{
+                            my: 5,
+                            mx: 10,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            width: { lg: '80%', xl: '20%' }
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                            <LockIcon />
+                        </Avatar>
+                        <Typography variant="h4" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.15)', textAlign: "center" }}>
+                            Tu perfil
+                        </Typography>
+                        {
+                            profile ?
+                                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                                    <TextField
+                                        defaultValue={profile.data.user}
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="user"
+                                        label="Usuario"
+                                        name="user"
+                                        autoComplete="user"
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        defaultValue={profile.data.name}
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="name"
+                                        label="Nombre completo"
+                                        name="name"
+                                        autoComplete="name"
+                                        autoFocus
+                                    />
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2 }}
+                                    >
+                                        {loading && <CircularProgress size={20} color="inherit" />}
+                                        &nbsp;
+                                        Actualizar información
+                                    </Button>
+                                </Box>
+                                :
+                                <Skeleton width="400px" height="400px" animation="wave" variant="rounded" sx={{ marginY: 2 }} />
+                        }
+                    </Box>
+                </Grid>
             </Grid>
-        </Grid>
+        </Fade>
     );
 }

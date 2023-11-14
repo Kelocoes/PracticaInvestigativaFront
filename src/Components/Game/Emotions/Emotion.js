@@ -1,10 +1,12 @@
 export const emotionsPool = [
     { name: "Neutral", emoji: "😐", probability: 0.05, score: 20},
-    { name: "Felicidad", emoji: "😄", probability: 0.2, score: 50},
-    { name: "Sorpresa", emoji: "😲", probability: 0.2, score: 100},
+    { name: "Felicidad", emoji: "😄", probability: 0.19, score: 50},
+    { name: "Sorpresa", emoji: "😲", probability: 0.19, score: 100},
     { name: "Tristeza", emoji: "😢", probability: 0.25, score: 120},
     { name: "Furia", emoji: "😡", probability: 0.2, score: 150},
-    { name: "Miedo", emoji: "😨", probability: 0.1, score: 200}
+    { name: "Miedo", emoji: "😨", probability: 0.1, score: 200},
+    { name: "Disgusto", emoji: "😒", probability: 0.01, score: 500},
+    { name: "Desprecio", emoji: "😤", probability: 0.01, score: 500}
 ]
 
 const getRandomEmotion = () => {

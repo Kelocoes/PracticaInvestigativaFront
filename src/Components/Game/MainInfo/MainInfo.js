@@ -4,14 +4,13 @@ import { Typography } from '@mui/material';
 import { useRequest } from '../../../Api/ApiModel';
 import Results from './Results';
 import Grid from '@mui/material/Grid';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import PropTypes from 'prop-types';
+import Fade from '@mui/material/Fade';
 
 export default function MainInfo(props) {
     const { response, setResponse, } = props;
     const webcamRef = useRef(null);
     const { getRecognition } = useRequest();
-    const matches = useMediaQuery('(max-width:600px)');
 
     const captureImage = () => {
         try {
@@ -32,29 +31,31 @@ export default function MainInfo(props) {
     },);
 
     return (
-        <Grid container spacing={2} sx={{ paddingX: 10, paddingTop: 5, paddingBottom: 2 }}>
-            <Grid item xs={12}>
-                <Typography variant="h4">
-                    Reconocimiento facial y de emociones
-                </Typography>
+        <Fade in={true} timeout={750} mountOnEnter unmountOnExit>
+            <Grid container sx={{ paddingX: { sm: 2, md: 10 }, paddingTop: 5, paddingBottom: 2 }}>
+                <Grid item xs={12} sx={{ mb: 2 }}>
+                    <Typography variant="h4" sx={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 0.15)', textAlign: "center" }}>
+                        Reconocimiento facial y de emociones
+                    </Typography>
+                </Grid>
+                <Grid item xs={2} />
+                <Grid item xs={12} md={12} lg={5} >
+                    <Webcam
+                        width="75%"
+                        screenshotFormat="image/jpeg"
+                        ref={webcamRef}
+                        audio={false}
+                        mirrored={true}
+                        screenshotQuality={1}
+                    ></Webcam>
+                </Grid>
+                <Grid item xs={12} md={12} lg={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {response &&
+                        <Results response={response}></Results>
+                    }
+                </Grid>
             </Grid>
-            <Grid item xs={1} />
-            <Grid item xs={12} md={12} lg={5} sx={{ display: 'flex', alignItems: 'center', justifyContent: { md:'center', lg:'right'} }}>
-                <Webcam
-                    height={matches ? 150 : 400}
-                    screenshotFormat="image/jpeg"
-                    ref={webcamRef}
-                    audio={false}
-                    mirrored={true}
-                    screenshotQuality={1}
-                ></Webcam>
-            </Grid>
-            <Grid item xs={12} md={12} lg={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {response &&
-                    <Results response={response}></Results>
-                }
-            </Grid>
-        </Grid>
+        </Fade>
     );
 }
 

@@ -8,10 +8,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import DeblurIcon from '@mui/icons-material/Deblur';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Divider from '@mui/material/Divider';
 
 export default function Dashboard() {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(-1);
 
     const cleanStorage = () => {
         localStorage.removeItem('userid')
@@ -39,7 +38,6 @@ export default function Dashboard() {
                         <BottomNavigationAction label="Reportes" icon={<QueryStatsIcon />} component={LinkRouter} to={`reportes`}/>
                         <BottomNavigationAction label="Salir" icon={<LogoutIcon />} component={LinkRouter} to={`/`} onClick={cleanStorage}/>
                     </BottomNavigation>
-                    <Divider  sx={{ borderBottomWidth: 5, backgroundColor: 'gray', mt: 2 }} />
                 </Box>
                 <Box
                     component="main"

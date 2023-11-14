@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
+import Fade from '@mui/material/Fade';
 
 export default function Cardlist(props) {
     const { response, emotions, setScore, emotionsCount, setEmotionsCount } = props
@@ -8,7 +9,7 @@ export default function Cardlist(props) {
 
     const cards = emotions.map((emotion, index) => (
         <Grid item key={index}>
-            <Card style={{ backgroundColor: selectedEmotion === index ? 'lightgreen' : 'white'}} elevation={10}>
+            <Card style={{ backgroundColor: selectedEmotion === index ? 'lightgreen' : 'white' }} elevation={10}>
                 <CardContent>
                     <Typography variant="h2">{emotion["emoji"]}</Typography>
                 </CardContent>
@@ -17,7 +18,7 @@ export default function Cardlist(props) {
     ));
 
     const checkEmotion = () => {
-        if (selectedEmotion < emotions.length && response.EmotionResults.Emotions[0] === emotions[selectedEmotion].name ) {
+        if (selectedEmotion < emotions.length && response.EmotionResults.Emotions[0] === emotions[selectedEmotion].name) {
             const newArray = [...emotionsCount]
             newArray.find(emotion => emotion.name === emotions[selectedEmotion].name).count += 1
             setEmotionsCount(newArray)
@@ -38,13 +39,15 @@ export default function Cardlist(props) {
 
 
     return (
-        <div>
-            {emotions.length > 0 &&
-                <Grid container spacing={2} marginTop={1} sx={{ paddingX:10 }}>
-                    {cards}
-                </Grid>
-            }
-        </div>
+        <Fade in={true} timeout={750} mountOnEnter unmountOnExit>
+            <div>
+                {emotions.length > 0 &&
+                    <Grid container spacing={2} marginTop={1} sx={{ paddingX: 10 }}>
+                        {cards}
+                    </Grid>
+                }
+            </div>
+        </Fade>
     );
 }
 
